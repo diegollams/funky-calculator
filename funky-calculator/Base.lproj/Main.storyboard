@@ -56,6 +56,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zp6-x7-Ohx">
                                                 <rect key="frame" x="360" y="0.0" width="120" height="116"/>
                                                 <state key="normal" title="/"/>
+                                                <connections>
+                                                    <action selector="dividePress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ISQ-hZ-4DY"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sNb-4h-jA6">
                                                 <rect key="frame" x="480" y="0.0" width="120" height="116"/>
@@ -92,6 +95,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Njv-r2-Z1o">
                                                 <rect key="frame" x="360" y="0.0" width="120" height="116"/>
                                                 <state key="normal" title="*"/>
+                                                <connections>
+                                                    <action selector="multiplicationPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C59-C0-dBg"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XwM-Xz-TSu">
                                                 <rect key="frame" x="480" y="0.0" width="120" height="116"/>
@@ -129,6 +135,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fI6-m9-tJd">
                                                 <rect key="frame" x="360" y="0.0" width="120" height="116"/>
                                                 <state key="normal" title="-"/>
+                                                <connections>
+                                                    <action selector="subtractionPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Pj-Le-Hol"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDw-PK-GGE">
                                                 <rect key="frame" x="480" y="0.0" width="120" height="116"/>
@@ -156,6 +165,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HXM-7a-FoY">
                                                 <rect key="frame" x="240" y="0.0" width="120" height="116"/>
                                                 <state key="normal" title="="/>
+                                                <connections>
+                                                    <action selector="equalPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mYO-tK-r2o"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V2A-z0-dSF">
                                                 <rect key="frame" x="360" y="0.0" width="120" height="116"/>
