@@ -9,17 +9,55 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var displayLabel:UILabel!
+    var displayValue = 0.0
+    var leftNumber:Double?
+    var calculatedOperation = false
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        loadDisplayLabel()
+    }
+    
+    func clearValues(){
+        displayValue = 0
+        leftNumber = 0
+        calculatedOperation = false
+    }
+    
+    func loadDisplayLabel(){
+        displayLabel.text = "\(displayValue)"
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func numberPressed(button: UIButton){
+        if calculatedOperation{
+            clearValues()
+        }
+        else{
+            displayValue = (displayValue * 10.0) + Double(button.tag)
+        }
+        loadDisplayLabel()
     }
-
-
+    
+    @IBAction func clearPress(button: UIButton){
+        clearValues()
+        loadDisplayLabel()
+    }
+    
+    @IBAction func sumPress(button: UIButton){
+        if (leftNumber == nil) {
+            leftNumber = displayValue
+            displayValue = 0.0
+        }else{
+            displayValue += leftNumber!
+            leftNumber = displayValue
+            calculatedOperation = true
+        }
+        loadDisplayLabel()
+    }
+    
+    
+    
 }
 
