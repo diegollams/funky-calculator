@@ -12,57 +12,79 @@ class ViewController: UIViewController {
     
     
     @IBOutlet weak var displayLabel:UILabel!
+    
     var displayValue = 0.0
     var leftNumber:Double?
-    var calculatedOperation = false
-    var operation = ""
+    var clearDisplay = false
+    var lastOperation  = Operation.Empty
+    enum Operation: String {
+        case Sum = "+"
+        case Substrac = "-"
+        case Divide = "/"
+        case Multiply = "*"
+        case Equals = "="
+        case Empty = "emp"
+        
+    }
+    
     override func viewDidLoad() {
         loadDisplayLabel()
     }
     
-    func makeOperation(){
-        if leftNumber == nil {
-            leftNumber = displayValue
-            calculatedOperation = true
-        }
-        else{
+    func makeOperation(operation: Operation){
+        
+        if leftNumber != nil {
             switch operation {
-            case "+":
+            case Operation.Sum:
                 displayValue += leftNumber!
                 break
-            case "-":
-                displayValue -= leftNumber!
+            case Operation.Substrac:
+                displayValue = leftNumber! - displayValue
                 break
-            case "/":
-                if !(displayValue == 0){
-                    displayValue /= leftNumber!
+            case Operation.Divide:
+                if displayValue != 0{
+                    displayValue = leftNumber! / displayValue
                 }
                 else{
-                    let errorAlert = UIAlertController(title: "Error", message: "Division by 0.", preferredStyle: UIAlertControllerStyle.Alert)
-                    errorAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                        self.clearValues()
-                    }))
-                    presentViewController(errorAlert, animated: true, completion: nil)
+                    errorBox()
                 }
                 break
-            case "*":
+            case Operation.Multiply:
                 displayValue *= leftNumber!
                 break
-            default: break
-                
+            case Operation.Equals:
+                makeOperation(lastOperation)
+                lastOperation = Operation.Empty
+                break
+            case Operation.Empty:
+                break
             }
-            leftNumber = displayValue
-            calculatedOperation = true
-
         }
+    
+        leftNumber = displayValue
+        loadLastOperation(operation)
+        clearDisplay = true
         loadDisplayLabel()
+    }
+    
+    func errorBox(){
+        let errorAlert = UIAlertController(title: "Error", message: "Division by 0.", preferredStyle: UIAlertControllerStyle.Alert)
+        errorAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            self.clearValues()
+        }))
+        presentViewController(errorAlert, animated: true, completion: nil)
+    }
+    
+    func loadLastOperation(operation: Operation){
+        if operation != Operation.Equals{
+            lastOperation = operation
+        }
     }
     
     func clearValues(){
         displayValue = 0
         leftNumber = nil
-        calculatedOperation = false
-        operation = ""
+        clearDisplay = false
     }
     
     func loadDisplayLabel(){
@@ -70,13 +92,13 @@ class ViewController: UIViewController {
     }
 
     @IBAction func equalPress(button: UIButton){
-        makeOperation()
+        makeOperation(Operation.Equals)
     }
     
     @IBAction func numberPressed(button: UIButton){
-        if calculatedOperation{
+        if clearDisplay{
             displayValue = Double(button.tag)
-            calculatedOperation = false
+            clearDisplay = false
         }
         else{
             displayValue = (displayValue * 10.0) + Double(button.tag)
@@ -87,27 +109,23 @@ class ViewController: UIViewController {
     @IBAction func clearPress(button: UIButton){
         clearValues()
         loadDisplayLabel()
+        lastOperation = Operation.Equals
     }
     
     @IBAction func sumPress(button: UIButton){
-        operation = "+"
-        makeOperation()
-        
+        makeOperation(Operation.Sum)
     }
     
     @IBAction func subtractionPress(button: UIButton){
-        operation = "-"
-        makeOperation()
+        makeOperation(Operation.Substrac)
     }
     
     @IBAction func multiplicationPress(button: UIButton){
-        operation = "*"
-        makeOperation()
+        makeOperation(Operation.Multiply)
     }
     
     @IBAction func dividePress(button: UIButton){
-        operation = "/"
-        makeOperation()
+        makeOperation(Operation.Divide)
     }
     
     
