@@ -12,6 +12,7 @@
 		6B508F551CED3BA600A66834 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B508F531CED3BA600A66834 /* Main.storyboard */; };
 		6B508F571CED3BA600A66834 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B508F561CED3BA600A66834 /* Assets.xcassets */; };
 		6B508F5A1CED3BA600A66834 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B508F581CED3BA600A66834 /* LaunchScreen.storyboard */; };
+		6BFDD7EE1D1220690006850F /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFDD7ED1D1220690006850F /* Calculator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		6B508F561CED3BA600A66834 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B508F591CED3BA600A66834 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B508F5B1CED3BA600A66834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6BFDD7ED1D1220690006850F /* Calculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				6B508F511CED3BA600A66834 /* ViewController.swift */,
 				6B508F531CED3BA600A66834 /* Main.storyboard */,
 				6B508F561CED3BA600A66834 /* Assets.xcassets */,
+				6BFDD7ED1D1220690006850F /* Calculator.swift */,
 				6B508F581CED3BA600A66834 /* LaunchScreen.storyboard */,
 				6B508F5B1CED3BA600A66834 /* Info.plist */,
 			);
@@ -137,6 +140,7 @@
 			files = (
 				6B508F521CED3BA600A66834 /* ViewController.swift in Sources */,
 				6B508F501CED3BA600A66834 /* AppDelegate.swift in Sources */,
+				6BFDD7EE1D1220690006850F /* Calculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +292,7 @@
 				6B508F601CED3BA600A66834 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

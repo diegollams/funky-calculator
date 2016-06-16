@@ -10,122 +10,87 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
     @IBOutlet weak var displayLabel:UILabel!
     
+    var calculator = Calculator()
     var displayValue = 0.0
-    var leftNumber:Double?
-    var clearDisplay = false
-    var lastOperation  = Operation.Empty
-    enum Operation: String {
-        case Sum = "+"
-        case Substrac = "-"
-        case Divide = "/"
-        case Multiply = "*"
-        case Equals = "="
-        case Empty = "emp"
-        
-    }
+    var afterOperation = true
     
     override func viewDidLoad() {
+        calculator.currentValue = 0.0
         loadDisplayLabel()
     }
     
-    func makeOperation(operation: Operation){
-        
-        if leftNumber != nil {
-            switch operation {
-            case Operation.Sum:
-                displayValue += leftNumber!
-                break
-            case Operation.Substrac:
-                displayValue = leftNumber! - displayValue
-                break
-            case Operation.Divide:
-                if displayValue != 0{
-                    displayValue = leftNumber! / displayValue
-                }
-                else{
-                    errorBox()
-                }
-                break
-            case Operation.Multiply:
-                displayValue *= leftNumber!
-                break
-            case Operation.Equals:
-                makeOperation(lastOperation)
-                lastOperation = Operation.Empty
-                break
-            case Operation.Empty:
-                break
-            }
-        }
-    
-        leftNumber = displayValue
-        loadLastOperation(operation)
-        clearDisplay = true
-        loadDisplayLabel()
-    }
-    
-    func errorBox(){
-        let errorAlert = UIAlertController(title: "Error", message: "Division by 0.", preferredStyle: UIAlertControllerStyle.Alert)
+    func errorBox(errorMessage: String){
+        let errorAlert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
         errorAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            self.clearValues()
+            self.clearCalculator()
         }))
         presentViewController(errorAlert, animated: true, completion: nil)
     }
     
-    func loadLastOperation(operation: Operation){
-        if operation != Operation.Equals{
-            lastOperation = operation
+    func makeOperation(operation: Calculator.Operation){
+        do{
+            calculator.operation = operation
+            displayValue = try calculator.perfomOperation(displayValue)
+            afterOperation = true
+            loadDisplayLabel()
+        }catch Calculator.Errors.DivisionBy0{
+            errorBox("Divisiont by 0")
+        }catch {
+            errorBox("Unhandle error")
         }
-    }
-    
-    func clearValues(){
-        displayValue = 0
-        leftNumber = nil
-        clearDisplay = false
     }
     
     func loadDisplayLabel(){
         displayLabel.text = "\(displayValue)"
     }
+    
+    func clearCalculator(){
+        calculator.clear()
+        displayValue = 0.0
+        loadDisplayLabel()
+    }
 
     @IBAction func equalPress(button: UIButton){
-        makeOperation(Operation.Equals)
+        do{
+            displayValue = try calculator.perfomOperation(displayValue)
+            afterOperation = true
+            loadDisplayLabel()
+        }catch{
+            
+        }
+        
     }
     
     @IBAction func numberPressed(button: UIButton){
-        if clearDisplay{
-            displayValue = Double(button.tag)
-            clearDisplay = false
+        if afterOperation{
+            displayValue = 0
         }
-        else{
-            displayValue = (displayValue * 10.0) + Double(button.tag)
-        }
+        afterOperation = false
+        displayValue = (displayValue * 10.0) + Double(button.tag)
         loadDisplayLabel()
+
     }
     
     @IBAction func clearPress(button: UIButton){
-        clearValues()
-        loadDisplayLabel()
-        lastOperation = Operation.Equals
+        clearCalculator()
     }
     
     @IBAction func sumPress(button: UIButton){
-        makeOperation(Operation.Sum)
+        makeOperation(Calculator.Operation.Sum)
     }
     
     @IBAction func subtractionPress(button: UIButton){
-        makeOperation(Operation.Substrac)
+        makeOperation(Calculator.Operation.Substraction)
     }
     
     @IBAction func multiplicationPress(button: UIButton){
-        makeOperation(Operation.Multiply)
+        makeOperation(Calculator.Operation.Multiplication)
     }
     
     @IBAction func dividePress(button: UIButton){
-        makeOperation(Operation.Divide)
+        makeOperation(Calculator.Operation.Divisition)
     }
     
     
