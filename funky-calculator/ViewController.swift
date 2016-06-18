@@ -17,12 +17,18 @@ class ViewController: UIViewController {
     var calculator = Calculator()
     var displayValue = 0.0
     var afterOperation = true
+    //if true whole numbers add to display if false decimal numbers added to display
+    var wholeNumbers = true
+    //value to add decimal numbers to display
+    var decimalMultiplier = 0.1
+    
     let buttonSoundFileName = "button-sound"
+    let initialDisplayValue = 0.0
     
     override func viewDidLoad() {
         prepareBtnSound()
         
-        calculator.currentValue = 0.0
+        clearCalculator()
         
         loadDisplayLabel()
     }
@@ -35,6 +41,7 @@ class ViewController: UIViewController {
         presentViewController(errorAlert, animated: true, completion: nil)
     }
     
+    //handle the operation and errors
     func makeOperation(operation: Calculator.Operation){
         do{
             calculator.operation = operation
@@ -46,6 +53,7 @@ class ViewController: UIViewController {
         }catch {
             errorBox("Unhandle error")
         }
+        resetToWholeNumbers()
     }
     
     func loadDisplayLabel(){
@@ -53,9 +61,16 @@ class ViewController: UIViewController {
     }
     
     func clearCalculator(){
+        wholeNumbers = true
+        resetToWholeNumbers()
         calculator.clear()
-        displayValue = 0.0
+        displayValue = initialDisplayValue
         loadDisplayLabel()
+    }
+    
+    func resetToWholeNumbers(){
+        wholeNumbers = true
+        decimalMultiplier = 0.1
     }
     
     func prepareBtnSound(){
@@ -81,8 +96,8 @@ class ViewController: UIViewController {
             displayValue = try calculator.perfomOperation(displayValue)
             afterOperation = true
             loadDisplayLabel()
-        }catch{
-            
+        }catch let err as NSError{
+            print(err.debugDescription)
         }
         
     }
@@ -90,10 +105,17 @@ class ViewController: UIViewController {
     @IBAction func numberPressed(button: UIButton){
         playBtnSound()
         if afterOperation{
-            displayValue = 0
+            displayValue = initialDisplayValue
         }
         afterOperation = false
-        displayValue = (displayValue * 10.0) + Double(button.tag)
+        if wholeNumbers{
+            displayValue = (displayValue * 10.0) + Double(button.tag)
+        }
+        else{
+            displayValue = displayValue + (Double(button.tag) * decimalMultiplier)
+            decimalMultiplier *= 0.1
+        }
+        
         loadDisplayLabel()
 
     }
@@ -121,6 +143,11 @@ class ViewController: UIViewController {
     @IBAction func dividePress(button: UIButton){
         playBtnSound()
         makeOperation(Calculator.Operation.Divisition)
+    }
+    
+    @IBAction func dotPrees(button: UIButton){
+        playBtnSound()
+        wholeNumbers = false
     }
     
     
