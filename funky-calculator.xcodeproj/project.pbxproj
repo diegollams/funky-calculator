@@ -12,6 +12,7 @@
 		6B508F551CED3BA600A66834 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B508F531CED3BA600A66834 /* Main.storyboard */; };
 		6B508F571CED3BA600A66834 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B508F561CED3BA600A66834 /* Assets.xcassets */; };
 		6B508F5A1CED3BA600A66834 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B508F581CED3BA600A66834 /* LaunchScreen.storyboard */; };
+		6B69B7921D158EAD0007CF63 /* button-sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6B69B7911D158EAD0007CF63 /* button-sound.wav */; };
 		6BFDD7EE1D1220690006850F /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFDD7ED1D1220690006850F /* Calculator.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 		6B508F561CED3BA600A66834 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B508F591CED3BA600A66834 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B508F5B1CED3BA600A66834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B69B7911D158EAD0007CF63 /* button-sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "button-sound.wav"; path = "../../../../Downloads/button-sound.wav"; sourceTree = "<group>"; };
 		6BFDD7ED1D1220690006850F /* Calculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				6B508F4F1CED3BA600A66834 /* AppDelegate.swift */,
+				6B69B7911D158EAD0007CF63 /* button-sound.wav */,
 				6B508F511CED3BA600A66834 /* ViewController.swift */,
 				6B508F531CED3BA600A66834 /* Main.storyboard */,
 				6B508F561CED3BA600A66834 /* Assets.xcassets */,
@@ -127,6 +130,7 @@
 			files = (
 				6B508F5A1CED3BA600A66834 /* LaunchScreen.storyboard in Resources */,
 				6B508F571CED3BA600A66834 /* Assets.xcassets in Resources */,
+				6B69B7921D158EAD0007CF63 /* button-sound.wav in Resources */,
 				6B508F551CED3BA600A66834 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

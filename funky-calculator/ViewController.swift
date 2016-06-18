@@ -7,17 +7,23 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var displayLabel:UILabel!
     
+    var btnSound: AVAudioPlayer!
     var calculator = Calculator()
     var displayValue = 0.0
     var afterOperation = true
+    let buttonSoundFileName = "button-sound"
     
     override func viewDidLoad() {
+        prepareBtnSound()
+        
         calculator.currentValue = 0.0
+        
         loadDisplayLabel()
     }
     
@@ -51,6 +57,24 @@ class ViewController: UIViewController {
         displayValue = 0.0
         loadDisplayLabel()
     }
+    
+    func prepareBtnSound(){
+        let path = NSBundle.mainBundle().pathForResource(buttonSoundFileName, ofType: "wav")
+        let soundUrl = NSURL(fileURLWithPath: path!)
+        do{
+            try btnSound = AVAudioPlayer(contentsOfURL: soundUrl)
+            btnSound.prepareToPlay()
+        }catch let err as NSError{
+            print(err.debugDescription)
+        }
+    }
+    
+    func playBtnSound(){
+        if btnSound.playing{
+            btnSound.stop()
+        }
+        btnSound.play()
+    }
 
     @IBAction func equalPress(button: UIButton){
         do{
@@ -64,6 +88,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func numberPressed(button: UIButton){
+        playBtnSound()
         if afterOperation{
             displayValue = 0
         }
@@ -74,22 +99,27 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clearPress(button: UIButton){
+        playBtnSound()
         clearCalculator()
     }
     
     @IBAction func sumPress(button: UIButton){
+        playBtnSound()
         makeOperation(Calculator.Operation.Sum)
     }
     
     @IBAction func subtractionPress(button: UIButton){
+        playBtnSound()
         makeOperation(Calculator.Operation.Substraction)
     }
     
     @IBAction func multiplicationPress(button: UIButton){
+        playBtnSound()
         makeOperation(Calculator.Operation.Multiplication)
     }
     
     @IBAction func dividePress(button: UIButton){
+        playBtnSound()
         makeOperation(Calculator.Operation.Divisition)
     }
     
