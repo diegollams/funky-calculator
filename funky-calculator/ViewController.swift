@@ -11,7 +11,8 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var displayLabel:UILabel!
+    @IBOutlet weak var displayLabel: UILabel!
+    @IBOutlet weak var operationLabel: UILabel!
     
     var btnSound: AVAudioPlayer!
     var calculator = Calculator()
@@ -49,15 +50,20 @@ class ViewController: UIViewController {
             afterOperation = true
             loadDisplayLabel()
         }catch Calculator.Errors.DivisionBy0{
+            print("caca")
             errorBox("Divisiont by 0")
+        }catch Calculator.Errors.PercentageOutOfRange{
+            print("cwewe")
+            errorBox("Percentage should be between 0 and 100")
         }catch {
-            errorBox("Unhandle error")
+            errorBox("Unhandle erro")
         }
         resetToWholeNumbers()
     }
     
     func loadDisplayLabel(){
         displayLabel.text = "\(displayValue)"
+        operationLabel.text = calculator.operation.rawValue
     }
     
     func clearCalculator(){
@@ -92,13 +98,8 @@ class ViewController: UIViewController {
     }
 
     @IBAction func equalPress(button: UIButton){
-        do{
-            displayValue = try calculator.perfomOperation(displayValue)
-            afterOperation = true
-            loadDisplayLabel()
-        }catch let err as NSError{
-            print(err.debugDescription)
-        }
+        playBtnSound()
+        makeOperation(calculator.operation)
         
     }
     
@@ -148,6 +149,11 @@ class ViewController: UIViewController {
     @IBAction func dotPrees(button: UIButton){
         playBtnSound()
         wholeNumbers = false
+    }
+    
+    @IBAction func percentagePress(button: UIButton){
+        playBtnSound()
+        makeOperation(Calculator.Operation.Percentage)
     }
     
     

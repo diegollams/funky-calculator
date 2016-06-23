@@ -5,11 +5,13 @@ public class Calculator{
         case Substraction = "-"
         case Multiplication = "*"
         case Divisition = "/"
+        case Percentage = "%"
         case Empty = ""
     }
     
     public enum Errors: ErrorType{
         case DivisionBy0
+        case PercentageOutOfRange
     }
     
     private var _result: Double?
@@ -60,6 +62,12 @@ public class Calculator{
                 }else{
                     throw Errors.DivisionBy0
                 }
+            case .Percentage:
+                if let percentageResult = percentage(rigthValue){
+                    return percentageResult
+                }else{
+                    throw Errors.PercentageOutOfRange
+                }
             default:
                 break
             }
@@ -80,6 +88,16 @@ public class Calculator{
     private func multiply(rigthValue: Double) -> Double{
         _result! *= rigthValue
         return _result!
+    }
+    
+    private func percentage(rigthValue: Double) -> Double?{
+        if rigthValue < 0.0 || rigthValue > 100.0{
+            clear()
+            return nil
+        }
+        let percentage = rigthValue * 0.01;
+        _result! *= percentage
+        return _result
     }
     
     private func divide(rigthValue: Double) -> Double?{
